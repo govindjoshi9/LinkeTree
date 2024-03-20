@@ -1,10 +1,11 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-export default function HeaderForm() {
+export default function HeaderForm({ user }) {
+  const router = useRouter();
   useEffect(() => {
     if (
       'localStorage' in window &&
@@ -12,7 +13,7 @@ export default function HeaderForm() {
     ) {
       const username = window.localStorage.getItem("desiredUserName");
       window.localStorage.removeItem("desiredUserName");
-      redirect("/account?username=" + username);
+      redirect("/account?desiredUserName=" + username);
     }
   }, []);
   async function handleSubmit(ev) {
@@ -21,8 +22,12 @@ export default function HeaderForm() {
     const input = form.querySelector("input");
     const username = input.value;
     if (username.length > 0) {
-      window.localStorage.setItem("desiredUserName", username);
-      await signIn("google");
+      if (user) {
+        router.push("/account?desiredUserName= ", username);
+      } else {
+        window.localStorage.setItem("desiredUserName", username);
+        await signIn("google");
+      }
     }
   }
   return (

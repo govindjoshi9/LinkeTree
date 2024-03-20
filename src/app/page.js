@@ -1,6 +1,9 @@
 import HeaderForm from "@/components/Froms/HeaderForm";
+import { getServerSession } from "next-auth";
+import { authOption } from "./api/auth/[...nextauth]/route";
 
-export default function Home() {
+export default async function Home() {
+  const session = await getServerSession(authOption);
   return (
     <main>
       <section className=" pt-32">
@@ -14,7 +17,8 @@ export default function Home() {
             heare
           </h2>
         </div>
-        <HeaderForm/>
+        
+        <HeaderForm user={session?.user } />
       </section>
     </main>
   );

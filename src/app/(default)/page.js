@@ -1,6 +1,6 @@
 import HeaderForm from "@/components/Froms/HeaderForm";
 import { getServerSession } from "next-auth";
-import { authOption } from "./api/auth/[...nextauth]/route";
+import { authOption } from "../api/auth/[...nextauth]/route";
 
 export default async function Home() {
   const session = await getServerSession(authOption);

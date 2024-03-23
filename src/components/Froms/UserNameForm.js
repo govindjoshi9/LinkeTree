@@ -3,13 +3,14 @@ import grabUsername from "@/actions/grabUsername";
 import RightIcon from "../icons/RightIcon";
 import { useState } from "react";
 import { redirect } from "next/navigation";
+import SubmitButton from "../Buttons/SubmitButton";
 export default function UserNameForm({ desiredUsername }) {
   const [taken, setTaken] = useState(false);
   async function handleSubmit(formData) {
     const result = await grabUsername(formData)
     setTaken(result === false);
     if (result) {
-      redirect('/account/' + formData.get('username'));
+      redirect('/account?created=' + formData.get('username'));
     }
   }
   return (
@@ -32,13 +33,12 @@ export default function UserNameForm({ desiredUsername }) {
           </div> 
           
         )}
-        <button
-          type="submit"
-          className="bg-blue-500 text-white py-2 px-4 block mx-auto w-full flex gap-2 item-center justify-center"
-        >
-          <span>Clain Usernname</span>
-          <RightIcon />
-        </button>
+        <SubmitButton>
+        <span>Clain Usernname</span>
+        <RightIcon />
+          
+        </SubmitButton>
+       
       </div>
     </form>
   );

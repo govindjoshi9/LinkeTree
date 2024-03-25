@@ -5,3 +5,23 @@
 body{
 @apply bg-gray-100;
 }
+.radio-togggle{
+    @apply p-1 bg-gray-200 inline-flex border border-blue-500
+}
+
+.radio-togggle div{
+    @apply  p-2 px-4 shadow to-gray-500 block flex items-center gap-2
+}
+.radio-togggle input[type='radio']{
+    @apply hidden
+}
+.radio-togggle input[type='radio']:checked +div{
+    @apply bg-white text-blue-600
+}
+
+input[type='text'],textarea{
+    @apply bg-gray-100 w-full block py-2 px-2 mb-2;
+}
+label.input-lable{
+ @apply uppercase text-gray-400 text-xs mb-2 font-semibold
+}

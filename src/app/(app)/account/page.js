@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import UserNameForm from "@/components/Froms/UserNameForm";
 import { Page } from "@/models/Page";
 import { mongoose } from "mongoose";
+import PageSettingForm from "@/components/Froms/PageSettingForm";
 
 
 export default async function page({ searchParams }) {
@@ -14,10 +15,9 @@ export default async function page({ searchParams }) {
   }
   mongoose.connect(process.env.MONGODB_URI);
   const page = await Page.findOne({ owner: session?.user?.email })
-  
   if (page) {
     return (
-      <div>Your page is: {page.uri}</div>
+      <PageSettingForm page={page} user= {session.user} />
     )
   }
   return (
